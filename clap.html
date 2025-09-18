@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拍手ボタン</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .button-container {
+      text-align: center;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    button {
+      font-size: 24px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff8c00;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #ff5c00;
+    }
+    .message {
+      font-size: 18px;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="button-container">
+    <h1>拍手ボタン</h1>
+    <button id="clapButton">👏 拍手する</button>
+    <p class="message" id="thankYouMessage">ありがとうございます！</p>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.x.x/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.x.x/firebase-database.js"></script>
+
+  <script>
+    // Firebaseの設定（自分の設定情報を貼り付けてください）
+    const firebaseConfig = {
+      apiKey: "XXXXXXXXXXXX",
+      authDomain: "your-project-id.firebaseapp.com",
+      databaseURL: "https://your-project-id.firebaseio.com",
+      projectId: "your-project-id",
+      storageBucket: "your-project-id.appspot.com",
+      messagingSenderId: "XXXXXXXXXXXX",
+      appId: "XXXXXXXXXXXX"
+    };
+
+    // Firebaseの初期化
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // 拍手ボタンのクリックイベント
+    const clapButton = document.getElementById('clapButton');
+    const thankYouMessage = document.getElementById('thankYouMessage');
+
+    clapButton.addEventListener('click', function() {
+      // FirebaseのclapCountを1増やす
+      const clapRef = database.ref('clapCount');
+      clapRef.transaction(function(currentValue) {
+        return (currentValue || 0) + 1;
+      });
+
+      // 「ありがとうございます！」の表示
+      thankYouMessage.style.display = 'block';
+
+      // 2秒後にmessage.htmlへ遷移
+      setTimeout(function() {
+        window.location.href = 'message.html'; // message.htmlへ遷移
+      }, 2000);
+    });
+  </script>
+
+</body>
+</html>
