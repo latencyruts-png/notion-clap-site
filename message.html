@@ -43,10 +43,6 @@
     button:hover {
       background-color: #ff5c00;
     }
-    #errorMessage {
-      color: red;
-      display: none;
-    }
   </style>
 </head>
 <body>
@@ -56,7 +52,6 @@
     <textarea id="messageInput" placeholder="メッセージを入力してください"></textarea>
     <br>
     <button id="sendMessageButton">送信</button>
-    <p id="errorMessage">メッセージを入力してください！</p>
   </div>
 
   <!-- Firebase SDK -->
@@ -81,7 +76,6 @@
 
     const sendMessageButton = document.getElementById('sendMessageButton');
     const messageInput = document.getElementById('messageInput');
-    const errorMessage = document.getElementById('errorMessage');
 
     sendMessageButton.addEventListener('click', function() {
       const message = messageInput.value.trim();
@@ -96,9 +90,8 @@
         // 入力欄をクリア
         messageInput.value = "";
         alert("メッセージが送信されました！");
-        errorMessage.style.display = 'none'; // エラーメッセージを非表示に
       } else {
-        errorMessage.style.display = 'block'; // エラーメッセージを表示
+        alert("メッセージを入力してください！");
       }
     });
   </script>
