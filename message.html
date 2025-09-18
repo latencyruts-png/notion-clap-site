@@ -43,6 +43,10 @@
     button:hover {
       background-color: #ff5c00;
     }
+    #errorMessage {
+      color: red;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -52,6 +56,7 @@
     <textarea id="messageInput" placeholder="メッセージを入力してください"></textarea>
     <br>
     <button id="sendMessageButton">送信</button>
+    <p id="errorMessage">メッセージを入力してください！</p>
   </div>
 
   <!-- Firebase SDK -->
@@ -59,17 +64,16 @@
   <script src="https://www.gstatic.com/firebasejs/10.x.x/firebase-database.js"></script>
 
   <script>
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
     // Firebaseの設定（自分の設定情報を貼り付けてください）
-  const firebaseConfig = {
-    apiKey: "AIzaSyBZfhePAXjBQtaZ5kdyCRbLJaov6HfJfps",
-    authDomain: "botan-89bbd.firebaseapp.com",
-    databaseURL: "https://botan-89bbd-default-rtdb.firebaseio.com",
-    projectId: "botan-89bbd",
-    storageBucket: "botan-89bbd.firebasestorage.app",
-    messagingSenderId: "57574706137",
-    appId: "1:57574706137:web:3a150ffb315d56dd09e7c8"
-  };
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZfhePAXjBQtaZ5kdyCRbLJaov6HfJfps",
+      authDomain: "botan-89bbd.firebaseapp.com",
+      databaseURL: "https://botan-89bbd-default-rtdb.firebaseio.com",
+      projectId: "botan-89bbd",
+      storageBucket: "botan-89bbd.firebasestorage.app",
+      messagingSenderId: "57574706137",
+      appId: "1:57574706137:web:3a150ffb315d56dd09e7c8"
+    };
 
     // Firebaseの初期化
     const app = firebase.initializeApp(firebaseConfig);
@@ -77,6 +81,7 @@
 
     const sendMessageButton = document.getElementById('sendMessageButton');
     const messageInput = document.getElementById('messageInput');
+    const errorMessage = document.getElementById('errorMessage');
 
     sendMessageButton.addEventListener('click', function() {
       const message = messageInput.value.trim();
@@ -91,12 +96,12 @@
         // 入力欄をクリア
         messageInput.value = "";
         alert("メッセージが送信されました！");
+        errorMessage.style.display = 'none'; // エラーメッセージを非表示に
       } else {
-        alert("メッセージを入力してください！");
+        errorMessage.style.display = 'block'; // エラーメッセージを表示
       }
     });
   </script>
 
 </body>
 </html>
-
