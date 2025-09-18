@@ -70,9 +70,9 @@
       appId: "1:57574706137:web:3a150ffb315d56dd09e7c8"
     };
 
-    // Firebaseの初期化
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database(app);  // firebase.database(app)を使って、初期化したアプリに紐づける
+    // Firebaseの初期化（モジュール化しない）
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();  // `firebase`がグローバル変数で使えるように
 
     const sendMessageButton = document.getElementById('sendMessageButton');
     const messageInput = document.getElementById('messageInput');
